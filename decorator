@@ -1,0 +1,29 @@
+from abc import ABCMeta, abstractmethod
+
+class IOperator(object):
+    """ The interface, which should be realized as a decorator and wrap the object.  """
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def operator(self):
+        pass
+
+
+class Component(IOperator):
+    """Programme component"""
+    def operator(self):
+        return 10.0
+
+
+class Wrapper(IOperator):
+    """Decorator"""
+    def __init__(self, obj):
+        self.obj = obj
+
+    def operator(self):
+        return self.obj.operator() + 5.0
+
+
+comp = Component()
+comp = Wrapper(comp)
+print(comp.operator())
